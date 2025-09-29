@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Iterable, List, Tuple
+from typing import Any, Iterable, List, Tuple, Set
 
 from typing_extensions import Protocol
 
@@ -64,7 +64,7 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
     Returns:
         Non-constant Variables in topological order starting from the right.
     """
-    def dfs(v: Variable):
+    def dfs(v: Variable) -> None:
         if v.unique_id in visited:
             return
         if v.is_constant():
@@ -74,8 +74,8 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
             dfs(p)
         order.append(v)
 
-    order = []
-    visited = set()
+    order: List[Variable] = []
+    visited: Set[int] = set()
     dfs(variable)
     return order
 
@@ -93,7 +93,7 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
     """
     topsort = topological_sort(variable)
     grads = {variable.unique_id: deriv}
-    for v in reversed(topsort):
+    for v in reversed(list(topsort)):
         if v.is_leaf():
             v.accumulate_derivative(grads[v.unique_id])
             continue
