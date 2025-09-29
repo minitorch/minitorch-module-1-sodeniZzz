@@ -13,13 +13,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.8"
     - name: Setup
       id: setup
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Setup
         setup-command: |
-          python -m pip install --upgrade pip setuptools
+          python -m pip install --upgrade pip
           pip install -qr requirements.txt
         command: mypy minitorch/*
         timeout: 10
@@ -29,7 +33,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 1.1
-        setup-command: sudo -H pip3 install -qr requirements.txt
+        setup-command: pip install -qr requirements.txt
         command: pytest -m task1_1
         timeout: 10
         max-score: 10
@@ -38,7 +42,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 1.2
-        setup-command: sudo -H pip3 install -qr requirements.txt
+        setup-command: pip install -qr requirements.txt
         command: pytest -m task1_2
         timeout: 10
     - name: task 1.3
@@ -46,7 +50,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: task 1.3
-        setup-command: sudo -H pip3 install -qr requirements.txt
+        setup-command: pip install -qr requirements.txt
         command: pytest -m task1_3
         timeout: 10
     - name: Task 1.4
@@ -54,7 +58,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Task 1.4
-        setup-command: sudo -H pip3 install -qr requirements.txt
+        setup-command: pip install -qr requirements.txt
         command: pytest -m task1_4
         timeout: 10
     - name: Autograding Reporter
