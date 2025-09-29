@@ -18,7 +18,9 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Setup
-        setup-command: sudo -H pip3 install -qr requirements.txt
+        setup-command: |
+          python -m pip install --upgrade pip
+          pip install -qr requirements.txt
         command: mypy minitorch/*
         timeout: 10
         max-score: 10
