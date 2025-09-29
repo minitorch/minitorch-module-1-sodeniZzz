@@ -19,7 +19,7 @@ jobs:
       with:
         test-name: Setup
         setup-command: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools
           pip install -qr requirements.txt
         command: mypy minitorch/*
         timeout: 10
